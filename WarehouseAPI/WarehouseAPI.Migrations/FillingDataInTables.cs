@@ -39,20 +39,12 @@ public class FillingDataInTables : Migration
         DepartmentId = department.Id
     };
 
-    private readonly DepartmentWorkers departmentWorkers = new DepartmentWorkers()
-    {
-        Id = Guid.NewGuid(),
-        DepartmentId = department.Id,
-        WorkerId = worker.Id
-    };
-
     public override void Up()
     {
         Insert.IntoTable("User").Row(user);
         Insert.IntoTable("Worker").Row(worker);
         Insert.IntoTable("Department").Row(department);
         Insert.IntoTable("Product").Row(product);
-        Insert.IntoTable("DepartmentWorkers").Row(departmentWorkers);
     }
 
     public override void Down()
@@ -61,6 +53,5 @@ public class FillingDataInTables : Migration
         Delete.FromTable("Worker").Row(worker);
         Delete.FromTable("Department").Row(department);
         Delete.FromTable("Product").Row(product);
-        Delete.FromTable("DepartmentWorkers").Row(departmentWorkers);
     }
 }
