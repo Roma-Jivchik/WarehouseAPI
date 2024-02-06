@@ -1,10 +1,11 @@
 ﻿using FluentMigrator.Runner;
-using WebLibrary.Migrations;
-using WebLibrary.DAL.DataAccess;
+using WarehouseAPI.Migrations;
+using WarehouseAPI.DAL.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WebLibrary.DAL.Repositories.BookRepositories;
-using WebLibrary.DAL.Repositories.UserRepositories;
+using WarehouseAPI.DAL.Repositories.WorkerRepositories;
+using WarehouseAPI.DAL.Repositories.ProductRepositories;
+using WarehouseAPI.DAL.Repositories.DepartmentRepositories;
 
 namespace WebLibrary.DAL
 {
@@ -20,8 +21,9 @@ namespace WebLibrary.DAL
                 .WithGlobalConnectionString(connectionString)
                 .ScanIn(typeof(InitializeTables).Assembly).For.Migrations());
 
-            serviceCollection.AddScoped<IBookRepository, BookRepository>();
-            serviceCollection.AddScoped<IUserRepository, UserRepository>();
+            serviceCollection.AddScoped<IWorkerRepository, WorkerRepository>();
+            serviceCollection.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            serviceCollection.AddScoped<IProductRepository, ProductRepository>();
         }
     }
 }
