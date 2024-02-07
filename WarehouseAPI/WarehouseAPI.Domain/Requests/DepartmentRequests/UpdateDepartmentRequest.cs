@@ -1,6 +1,6 @@
 ﻿namespace WarehouseAPI.Domain.Requests.DepartmentRequests
 {
-    internal class UpdateDepartmentRequest
+    public class UpdateDepartmentRequest
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;

@@ -1,6 +1,6 @@
 ﻿namespace WarehouseAPI.Domain.Requests.DepartmentRequests
 {
-    internal class CreateDepartmentRequest
+    public class CreateDepartmentRequest
     {
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;

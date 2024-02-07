@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseAPI.Migrations", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseAPI.Domain", "WarehouseAPI.Domain\WarehouseAPI.Domain.csproj", "{7B82CE6A-0D68-4D60-B1BE-7076612BF3F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseAPI.DAL", "WarehouseAPI.DAL\WarehouseAPI.DAL.csproj", "{385202B1-4E51-4C72-B480-3FB10E240944}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarehouseAPI.DAL", "WarehouseAPI.DAL\WarehouseAPI.DAL.csproj", "{385202B1-4E51-4C72-B480-3FB10E240944}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseAPI.BLL", "WarehouseAPI.BLL\WarehouseAPI.BLL.csproj", "{EEC92435-DAD9-4493-BEC8-113289A89162}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{385202B1-4E51-4C72-B480-3FB10E240944}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{385202B1-4E51-4C72-B480-3FB10E240944}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{385202B1-4E51-4C72-B480-3FB10E240944}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEC92435-DAD9-4493-BEC8-113289A89162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEC92435-DAD9-4493-BEC8-113289A89162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEC92435-DAD9-4493-BEC8-113289A89162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEC92435-DAD9-4493-BEC8-113289A89162}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
