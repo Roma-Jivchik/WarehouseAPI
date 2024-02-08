@@ -5,27 +5,21 @@ using WarehouseAPI.Domain.Entities;
 using WarehouseAPI.Domain.Requests.DepartmentRequests;
 using WarehouseAPI.BLL.Resources;
 using Mapster;
-using WarehouseAPI.DAL.Repositories.WorkerRepositories;
-using WarehouseAPI.DAL.Repositories.ProductRepositories;
 
 namespace WarehouseAPI.BLL.Services.DepartmentServices
 {
     internal class DepartmentService : IDepartmentService
     {
         private readonly IDepartmentRepository _departmentRepository;
-        private readonly IWorkerRepository _workerRepository;
-        private readonly IProductRepository _productRepository;
 
-        public DepartmentService(IDepartmentRepository departmentRepository, IWorkerRepository workerRepository, IProductRepository productRepository)
+        public DepartmentService(IDepartmentRepository departmentRepository)
         {
             _departmentRepository = departmentRepository;
-            _workerRepository = workerRepository;
-            _productRepository = productRepository;
         }
 
         public async Task<DepartmentDto?> CreateAsync(CreateDepartmentRequest createDepartmentRequest)
         {
-            var existingDepartment = _departmentRepository.GetByNumber(createDepartmentRequest.Number);
+            var existingDepartment = await _departmentRepository.GetByNumber(createDepartmentRequest.Number);
 
             if(existingDepartment is not null)
             {
@@ -33,6 +27,8 @@ namespace WarehouseAPI.BLL.Services.DepartmentServices
             }
 
             var departmentEntity = createDepartmentRequest.Adapt<Department>();
+
+            departmentEntity.Id = Guid.NewGuid();
 
             var createdDepartmentEntity = await _departmentRepository.AddAsync(departmentEntity);
 

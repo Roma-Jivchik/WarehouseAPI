@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WarehouseAPI.API.Models;
-using WarehouseAPI.BLL.Services.DepartmentServices;
 using WarehouseAPI.BLL.Services.DepartmentWorkersServices;
 using WarehouseAPI.Domain.Entities;
-using WarehouseAPI.Domain.Requests.DepartmentRequests;
 using WarehouseAPI.Domain.Requests.DepartmentWorkersRequests;
 
 namespace WarehouseAPI.API.Controllers
@@ -21,19 +18,19 @@ namespace WarehouseAPI.API.Controllers
         }
 
         [Authorize]
-        [HttpPost]
-        public async Task<ActionResult<DepartmentWorkers>> AddWorkerToDepartmentAsync([FromBody] WorkerAddingModel model)
+        [HttpPost("addWorkerToDepartment")]
+        public async Task<ActionResult<DepartmentWorkers>> AddWorkerToDepartmentAsync([FromBody] CreateDepartmentWorkersRequest request)
         {
-            var createdDepartmentWorkers = await _departmentWorkersService.AddWorkerToDepartmentAsync(model.WorkerLastName, model.DepartmentNumber);
+            var createdDepartmentWorkers = await _departmentWorkersService.AddWorkerToDepartmentAsync(request);
 
             return Ok(createdDepartmentWorkers);
         }
 
         [Authorize]
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteWorkerFromDepartmentAsync([FromRoute] Guid id)
+        [HttpDelete("deleteWorkerFromDepartment")]
+        public async Task<ActionResult> DeleteWorkerFromDepartmentAsync([FromBody] DeleteDepartmentWorkersRequest deleteDepartmentWorkersRequest)
         {
-            var isDelete = await _departmentWorkersService.DeleteWorkerFromDepartmentAsync(id);
+            var isDelete = await _departmentWorkersService.DeleteWorkerFromDepartmentAsync(deleteDepartmentWorkersRequest);
 
             if (isDelete is false)
             {
@@ -44,7 +41,7 @@ namespace WarehouseAPI.API.Controllers
         }
 
         [Authorize]
-        [HttpPut]
+        [HttpPut("updateWorkerDepartment")]
         public async Task<ActionResult> UpdateWorkerDepartmentAsync([FromBody] UpdateDepartmentWorkersRequest request)
         {
             var isUpdate = await _departmentWorkersService.UpdateWorkerDepartmentAsync(request);

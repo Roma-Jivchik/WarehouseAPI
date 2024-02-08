@@ -3,10 +3,11 @@ using WarehouseAPI.BLL.Exceptions;
 using WarehouseAPI.BLL.Resources;
 using WarehouseAPI.DAL.Repositories.DepartmentRepositories;
 using WarehouseAPI.DAL.Repositories.DepartmentWorkersRepositories;
+using WarehouseAPI.DAL.Repositories.DepartmentWorkersRepositories;
 using WarehouseAPI.DAL.Repositories.WorkerRepositories;
 using WarehouseAPI.Domain.DTOs;
 using WarehouseAPI.Domain.Entities;
-using WarehouseAPI.Domain.Requests.DepartmentRequests;
+using WarehouseAPI.Domain.Requests.DepartmentWorkersRequests;
 using WarehouseAPI.Domain.Requests.DepartmentWorkersRequests;
 
 namespace WarehouseAPI.BLL.Services.DepartmentWorkersServices
@@ -24,39 +25,63 @@ namespace WarehouseAPI.BLL.Services.DepartmentWorkersServices
             _departmentRepository = departmentRepository;
         }
 
-        public async Task<DepartmentWorkersDto?> AddWorkerToDepartmentAsync(string workerLastName, int departmentNumber)
+        public async Task<DepartmentWorkersDto?> AddWorkerToDepartmentAsync(CreateDepartmentWorkersRequest createDepartmentWorkersRequest)
         {
-            var workerEntity = await _workerRepository.GetByLastNameAsync(workerLastName);
+            var workerEntity = await _workerRepository.GetByLastNameAsync(createDepartmentWorkersRequest.WorkerLastName);
 
             if (workerEntity is null)
             {
                 throw new ValidationExceptionResult(WorkerExceptionMessages.WorkerIsNotExist);
             }
 
-            var departmentEntity = await _departmentRepository.GetByNumber(departmentNumber);
+            var departmentEntity = await _departmentRepository.GetByNumber(createDepartmentWorkersRequest.DepartmentNumber);
 
             if (departmentEntity is null)
             {
                 throw new ValidationExceptionResult(DepartmentExceptionMessages.DepartmentWithThisNumberIsNotExist);
             }
 
-            var createDepartmentWorkersRequest = new CreateDepartmentWorkersRequest(workerEntity.Id, departmentEntity.Id);
+            var departmentWorkers = new DepartmentWorkers()
+            {
+                Id = Guid.NewGuid(),
+                DepartmentId = departmentEntity.Id,
+                WorkerId = workerEntity.Id
+            };
 
-            return await CreateAsync(createDepartmentWorkersRequest);
+            return await CreateAsync(departmentWorkers);
         }
 
-        public async Task<DepartmentWorkersDto?> CreateAsync(CreateDepartmentWorkersRequest createDepartmentWorkersRequest)
+        public async Task<DepartmentWorkersDto?> CreateAsync(DepartmentWorkers departmentWorkers)
         {
-            var departmentWorkersEntity = createDepartmentWorkersRequest.Adapt<DepartmentWorkers>();
-
-            var createdDepartmentWorkersEntity = await _departmentWorkersRepository.AddAsync(departmentWorkersEntity);
+            var createdDepartmentWorkersEntity = await _departmentWorkersRepository.AddAsync(departmentWorkers);
 
             return createdDepartmentWorkersEntity.Adapt<DepartmentWorkersDto>();
         }
 
-        public Task<bool> DeleteWorkerFromDepartmentAsync(Guid id)
+        public async Task<bool> DeleteWorkerFromDepartmentAsync(DeleteDepartmentWorkersRequest deleteDepartmentWorkersRequest)
         {
-            return _departmentWorkersRepository.DeleteAsync(new DepartmentWorkers { Id = id });
+            var workerEntity = await _workerRepository.GetByLastNameAsync(deleteDepartmentWorkersRequest.WorkerLastName);
+
+            if (workerEntity is null)
+            {
+                throw new ValidationExceptionResult(WorkerExceptionMessages.WorkerIsNotExist);
+            }
+
+            var departmentEntity = await _departmentRepository.GetByNumber(deleteDepartmentWorkersRequest.DepartmentNumber);
+
+            if (departmentEntity is null)
+            {
+                throw new ValidationExceptionResult(DepartmentExceptionMessages.DepartmentWithThisNumberIsNotExist);
+            }
+
+            var departmentWorkersEntity = await _departmentWorkersRepository.GetDepartmentWorkersAsync(workerEntity.Id, departmentEntity.Id);
+
+            if(departmentWorkersEntity is null)
+            {
+                throw new ValidationExceptionResult(DepartmentWorkersMessages.ThereIsNoWorkerWhichWorkInThatDepartmentOrOpposite);
+            }
+
+            return await _departmentWorkersRepository.DeleteAsync(departmentWorkersEntity);
         }
 
         public async Task<bool> UpdateWorkerDepartmentAsync(UpdateDepartmentWorkersRequest updateDepartmentWorkersRequest)

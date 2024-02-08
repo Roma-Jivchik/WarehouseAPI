@@ -13,6 +13,8 @@ internal class WarehouseDBContext : DbContext
 
     public DbSet<Product> Products { get; set; } = null!;
 
+    public DbSet<DepartmentWorkers> DepartmentWorkers { get; set; } = null!;
+
     public WarehouseDBContext(DbContextOptions<WarehouseDBContext> options)
         : base(options)
     {

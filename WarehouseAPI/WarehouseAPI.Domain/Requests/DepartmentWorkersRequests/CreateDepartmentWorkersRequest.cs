@@ -2,13 +2,7 @@
 {
     public class CreateDepartmentWorkersRequest
     {
-        public Guid DepartmentId { get; set; }
-        public Guid WorkerId { get; set; }
-
-        public CreateDepartmentWorkersRequest(Guid departmentId, Guid workerId)
-        {
-            DepartmentId = departmentId;
-            WorkerId = workerId;
-        }
+        public string WorkerLastName { get; set; } = null!;
+        public int DepartmentNumber { get; set; }
     }
 }

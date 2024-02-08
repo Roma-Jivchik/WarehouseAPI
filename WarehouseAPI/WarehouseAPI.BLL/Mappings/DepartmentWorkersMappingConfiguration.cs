@@ -14,10 +14,21 @@ namespace WarehouseAPI.BLL.Mappings
 
             config.NewConfig<CreateDepartmentWorkersRequest, DepartmentWorkers>()
                   .RequireDestinationMemberSource(true)
-                  .Ignore(dest => dest.Id);
+                  .Ignore(dest => dest.Id)
+                  .Ignore(dest => dest.DepartmentId)
+                  .Ignore(dest => dest.WorkerId);
+
+            config.NewConfig<DeleteDepartmentWorkersRequest, DepartmentWorkers>()
+                  .RequireDestinationMemberSource(true)
+                  .Ignore(dest => dest.Id)
+                  .Ignore(dest => dest.DepartmentId)
+                  .Ignore(dest => dest.WorkerId);
+
 
             config.NewConfig<UpdateDepartmentWorkersRequest, DepartmentWorkers>()
-                .RequireDestinationMemberSource(true);
+                .RequireDestinationMemberSource(true)
+                .Ignore(dest => dest.DepartmentId)
+                .Ignore(dest => dest.WorkerId);
         }
     }
 }

@@ -3,7 +3,7 @@
     public class UpdateDepartmentWorkersRequest
     {
         public Guid Id { get; set; }
-        public Guid DepartmentId { get; set; }
-        public Guid WorkerId { get; set; }
+        public string WorkerLastName { get; set; } = null!;
+        public int DepartmentNumber { get; set; }
     }
 }

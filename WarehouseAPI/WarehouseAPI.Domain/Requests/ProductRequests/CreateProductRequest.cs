@@ -2,7 +2,8 @@
 
 public class CreateProductRequest
 {
-    public string FirstName { get; set; } = null!;
-    public string LastName { get; set; } = null!;
-    public string Position { get; set; } = null!;
+    public string Name { get; set; } = null!;
+    public string Description { get; set; } = null!;
+    public int Price { get; set; }
+    public int DepartmentNumber { get; set; }
 }

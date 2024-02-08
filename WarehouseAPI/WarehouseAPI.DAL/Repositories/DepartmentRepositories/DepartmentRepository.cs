@@ -18,7 +18,7 @@ namespace WarehouseAPI.DAL.Repositories.DepartmentRepositories
 
         public Task<Department?> GetByNumber(int number)
         {
-            return DbSet.AsNoTracking().FirstOrDefaultAsync(_ => _.Number == number);
+            return DbSet.AsNoTracking().FirstOrDefaultAsync(_ => _.Number == number); ;
         }
     }
 }

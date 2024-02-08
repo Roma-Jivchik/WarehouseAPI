@@ -29,7 +29,7 @@ public class InitializeTables : AutoReversingMigration
             .WithColumn("Name").AsString().NotNullable()
             .WithColumn("Description").AsString().NotNullable()
             .WithColumn("Price").AsInt32().NotNullable()
-            .WithColumn("DepartmentId").AsGuid().Unique().ForeignKey("Department", "Id").OnDeleteOrUpdate(System.Data.Rule.Cascade);
+            .WithColumn("DepartmentId").AsGuid().ForeignKey("Department", "Id").OnDeleteOrUpdate(System.Data.Rule.Cascade);
 
         Create.Table("DepartmentWorkers")
             .WithColumn("Id").AsGuid().PrimaryKey()

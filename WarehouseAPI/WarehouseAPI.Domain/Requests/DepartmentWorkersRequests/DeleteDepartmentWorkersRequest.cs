@@ -1,6 +1,6 @@
-﻿namespace WarehouseAPI.API.Models
+﻿namespace WarehouseAPI.Domain.Requests.DepartmentWorkersRequests
 {
-    public class WorkerAddingModel
+    public class DeleteDepartmentWorkersRequest
     {
         public string WorkerLastName { get; set; } = null!;
         public int DepartmentNumber { get; set; }

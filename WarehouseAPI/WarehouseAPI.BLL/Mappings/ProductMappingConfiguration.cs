@@ -10,14 +10,17 @@ namespace WarehouseAPI.BLL.Mappings
         public static void Register(TypeAdapterConfig config)
         {
             config.NewConfig<Product, ProductDto>()
-                .RequireDestinationMemberSource(true);
+                .RequireDestinationMemberSource(true)
+                .Ignore(dest => dest.DepartmentNumber);
 
             config.NewConfig<CreateProductRequest, Product>()
                   .RequireDestinationMemberSource(true)
-                  .Ignore(dest => dest.Id);
+                  .Ignore(dest => dest.Id)
+                  .Ignore(dest => dest.DepartmentId);
 
             config.NewConfig<UpdateProductRequest, Product>()
-                .RequireDestinationMemberSource(true);
+                .RequireDestinationMemberSource(true)
+                .Ignore(dest => dest.DepartmentId);
         }
     }
 }

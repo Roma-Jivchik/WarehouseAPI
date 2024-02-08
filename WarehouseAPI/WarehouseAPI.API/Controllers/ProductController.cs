@@ -27,20 +27,6 @@ namespace WarehouseAPI.API.Controllers
             return Ok(products);
         }
 
-        [Authorize]
-        [HttpPut("addProductToDepartment")]
-        public async Task<ActionResult> AddProductToDepartmentAsync([FromBody] ProductAddingModel model)
-        {
-            var isAdded = await _productService.AddProductToDepartmentAsync(model.ProductName, model.DepartmentNumber);
-
-            if (isAdded is false)
-            {
-                return BadRequest();
-            }
-
-            return Ok(isAdded);
-        }
-
         [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProductByIdAsync([FromRoute] Guid id)

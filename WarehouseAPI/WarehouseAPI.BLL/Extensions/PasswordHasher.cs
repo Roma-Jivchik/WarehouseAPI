@@ -42,20 +42,8 @@ namespace WarehouseAPI.BLL.Extensions
             return Hash(password, randomValue);
         }
 
-        public static bool IsHashSupported(string hash)
-        {
-            var isValid = hash.Equals("$FORMALHASH$");
-
-            return isValid;
-        }
-
         public static bool IsHashVerified(string password, string hashedPassword)
         {
-            if(!IsHashSupported(hashedPassword))
-            {
-                throw new NotSupportedException(HashExceptionMessages.HashIsNotSupported);
-            }
-
             var splittedHash = hashedPassword.Replace("$FORMALHASH$", "").Split("$");
             var iterations = int.Parse(splittedHash[0]);
             var base64Hash = splittedHash[1];

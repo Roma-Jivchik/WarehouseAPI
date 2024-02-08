@@ -18,7 +18,5 @@ namespace WarehouseAPI.BLL.Services.ProductServices
         Task<ProductDto?> GetByNameAsync(string name);
 
         Task<List<ProductDto>?> GetByLowerPriceAsync(int price);
-
-        Task<bool> AddProductToDepartmentAsync(string productName, int departmentNumber);
     }
 }

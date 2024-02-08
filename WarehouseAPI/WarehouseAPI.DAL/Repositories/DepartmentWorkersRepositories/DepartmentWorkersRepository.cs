@@ -1,4 +1,5 @@
-﻿using WarehouseAPI.DAL.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using WarehouseAPI.DAL.DataAccess;
 using WarehouseAPI.Domain.Entities;
 
 namespace WarehouseAPI.DAL.Repositories.DepartmentWorkersRepositories
@@ -8,6 +9,11 @@ namespace WarehouseAPI.DAL.Repositories.DepartmentWorkersRepositories
         public DepartmentWorkersRepository(WarehouseDBContext warehouseDBContext) : base(warehouseDBContext)
         {
 
+        }
+
+        public Task<DepartmentWorkers?> GetDepartmentWorkersAsync(Guid workerId, Guid departmentId)
+        {
+            return DbSet.AsNoTracking().FirstOrDefaultAsync(_ => _.WorkerId == workerId && _.DepartmentId == departmentId);
         }
     }
 }

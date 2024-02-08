@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WarehouseAPI.BLL.Services.IdentityServices;
 using WarehouseAPI.BLL.Services.WorkerServices;
 using WarehouseAPI.BLL.Services.ProductServices;
+using WarehouseAPI.BLL.Services.DepartmentWorkersServices;
 
 namespace WarehouseAPI.BLL
 {
@@ -19,6 +20,7 @@ namespace WarehouseAPI.BLL
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IWorkerService, WorkerService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IDepartmentWorkersService, DepartmentWorkersService>();
 
             return services;
         }
