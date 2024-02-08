@@ -1,7 +1,11 @@
 ﻿using Mapster;
+using WarehouseAPI.BLL.Exceptions;
+using WarehouseAPI.BLL.Resources;
+using WarehouseAPI.DAL.Repositories.DepartmentRepositories;
 using WarehouseAPI.DAL.Repositories.ProductRepositories;
 using WarehouseAPI.Domain.DTOs;
 using WarehouseAPI.Domain.Entities;
+using WarehouseAPI.Domain.Requests.DepartmentRequests;
 using WarehouseAPI.Domain.Requests.ProductRequests;
 
 namespace WarehouseAPI.BLL.Services.ProductServices
@@ -9,10 +13,12 @@ namespace WarehouseAPI.BLL.Services.ProductServices
     internal class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
+        private readonly IDepartmentRepository _departmentRepository;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IDepartmentRepository departmentRepository)
         {
             _productRepository = productRepository;
+            _departmentRepository = departmentRepository;
         }
 
         public async Task<ProductDto?> CreateAsync(CreateProductRequest createProductRequest)
@@ -79,6 +85,31 @@ namespace WarehouseAPI.BLL.Services.ProductServices
             await _productRepository.UpdateAsync(productEntity);
 
             return true;
+        }
+
+        public async Task<bool> AddProductToDepartmentAsync(string productName, int departmentNumber)
+        {
+            var productEntity = await GetByNameAsync(productName);
+
+            if (productEntity is null)
+            {
+                throw new ValidationExceptionResult(ProductExceptionMessages.ProductNotExist);
+            }
+
+            var departmentEntity = await _departmentRepository.GetByNumber(departmentNumber);
+
+            if (departmentEntity is null)
+            {
+                throw new ValidationExceptionResult(DepartmentExceptionMessages.DepartmentWithThisNumberIsNotExist);
+            }
+
+            productEntity.DepartmentId = departmentEntity.Id;
+
+            var productDto = productEntity.Adapt<ProductDto>();
+
+            var updateProductRequest = productDto.Adapt<UpdateProductRequest>();
+
+            return await UpdateAsync(updateProductRequest);
         }
     }
 }

@@ -59,15 +59,6 @@ namespace WarehouseAPI.BLL.Services.DepartmentWorkersServices
             return _departmentWorkersRepository.DeleteAsync(new DepartmentWorkers { Id = id });
         }
 
-        public async Task<List<DepartmentWorkersDto>> GetAllAsync()
-        {
-            var departmentWorkersEntities = await _departmentWorkersRepository.GetAsync();
-
-            var mappedDepartmentWorkers = departmentWorkersEntities.Adapt<List<DepartmentWorkersDto>>();
-
-            return mappedDepartmentWorkers;
-        }
-
         public async Task<bool> UpdateWorkerDepartmentAsync(UpdateDepartmentWorkersRequest updateDepartmentWorkersRequest)
         {
             var departmentWorkersEntity = await _departmentWorkersRepository.GetByIdAsync(updateDepartmentWorkersRequest.Id);

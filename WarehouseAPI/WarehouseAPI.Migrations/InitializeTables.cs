@@ -15,7 +15,7 @@ public class InitializeTables : AutoReversingMigration
         Create.Table("Department")
             .WithColumn("Id").AsGuid().NotNullable().PrimaryKey()
             .WithColumn("Name").AsString().NotNullable()
-            .WithColumn("Descripiton").AsString().NotNullable()
+            .WithColumn("Description").AsString().NotNullable()
             .WithColumn("Number").AsInt32().NotNullable();
 
         Create.Table("Worker")

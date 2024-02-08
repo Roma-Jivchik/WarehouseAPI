@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WarehouseAPI.API.Models;
 using WarehouseAPI.BLL.Services.DepartmentServices;
 using WarehouseAPI.Domain.Entities;
 using WarehouseAPI.Domain.Requests.DepartmentRequests;
@@ -76,34 +75,6 @@ namespace WarehouseAPI.API.Controllers
             var createdDepartment = await _departmentService.CreateAsync(request);
 
             return Ok(createdDepartment);
-        }
-
-        [Authorize]
-        [HttpPut]
-        public async Task<ActionResult> AddWorkerToDepartmentAsync([FromBody] WorkerAddingModel model)
-        {
-            var isAdded = await _departmentService.AddWorkerToDepartmentAsync(model.WorkerLastName, model.DepartmentNumber);
-
-            if(isAdded is false)
-            {
-                return BadRequest();
-            }
-
-            return Ok(isAdded);
-        }
-
-        [Authorize]
-        [HttpPut]
-        public async Task<ActionResult> AddProductToDepartmentAsync([FromBody] ProductAddingModel model)
-        {
-            var isAdded = await _departmentService.AddProductToDepartmentAsync(model.ProductName, model.DepartmentNumber);
-
-            if (isAdded is false)
-            {
-                return BadRequest();
-            }
-
-            return Ok(isAdded);
         }
 
         [Authorize]

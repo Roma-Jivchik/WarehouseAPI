@@ -35,7 +35,6 @@ public class FillingDataInTables : Migration
         Name = "Some name",
         Price = 100,
         Description = "Some description",
-        Department = department,
         DepartmentId = department.Id
     };
 

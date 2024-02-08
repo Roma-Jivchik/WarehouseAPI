@@ -5,8 +5,6 @@ namespace WarehouseAPI.BLL.Services.DepartmentWorkersServices
 {
     public interface IDepartmentWorkersService
     {
-        Task<List<DepartmentWorkersDto>> GetAllAsync();
-
         Task<DepartmentWorkersDto?> CreateAsync(CreateDepartmentWorkersRequest createDepartmentWorkersRequest);
 
         Task<bool> UpdateWorkerDepartmentAsync(UpdateDepartmentWorkersRequest updateDepartmentWorkersRequest);
