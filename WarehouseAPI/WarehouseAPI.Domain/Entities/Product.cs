@@ -9,6 +9,5 @@ namespace WarehouseAPI.Domain.Entities
         public string Description { get; set; } = null!;
         public int Price { get; set; }
         public Guid DepartmentId { get; set; }
-        public Department? Department { get; set; }
     }
 }

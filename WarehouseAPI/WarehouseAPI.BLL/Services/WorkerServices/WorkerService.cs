@@ -1,7 +1,12 @@
 ﻿using Mapster;
+using WarehouseAPI.BLL.Exceptions;
+using WarehouseAPI.BLL.Resources;
+using WarehouseAPI.BLL.Services.DepartmentServices;
+using WarehouseAPI.DAL.Repositories.DepartmentRepositories;
 using WarehouseAPI.DAL.Repositories.WorkerRepositories;
 using WarehouseAPI.Domain.DTOs;
 using WarehouseAPI.Domain.Entities;
+using WarehouseAPI.Domain.Requests.DepartmentRequests;
 using WarehouseAPI.Domain.Requests.WorkerRequests;
 
 namespace WarehouseAPI.BLL.Services.WorkerServices

@@ -13,20 +13,20 @@ public class FillingDataInTables : Migration
         PasswordHash = "$FORMALHASH$V1$10000$LJ6mpiEhYgaF2RIIsE9DWOS3LjhzLNtWlSMVfEJ6120vF7i0"
     };
 
-    private static readonly Worker worker = new Worker()
-    {
-        Id = Guid.NewGuid(),
-        FirstName = "Some name",
-        LastName = "Some last name",
-        Position = "Some position"
-    };
-
     private static Department department = new Department()
     {
         Id = Guid.NewGuid(),
         Name = "Department №1",
         Number = 1,
         Description = "Some description"
+    };
+
+    private readonly Worker worker = new Worker()
+    {
+        Id = Guid.NewGuid(),
+        FirstName = "Some name",
+        LastName = "Some last name",
+        Position = "Some position"
     };
 
     private readonly Product product = new Product()

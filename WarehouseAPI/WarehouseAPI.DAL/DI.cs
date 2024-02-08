@@ -6,8 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using WarehouseAPI.DAL.Repositories.WorkerRepositories;
 using WarehouseAPI.DAL.Repositories.ProductRepositories;
 using WarehouseAPI.DAL.Repositories.DepartmentRepositories;
+using WarehouseAPI.DAL.Repositories.UserRepositories;
 
-namespace WebLibrary.DAL
+namespace WarehouseAPI.DAL
 {
     public static class DI
     {
@@ -24,6 +25,7 @@ namespace WebLibrary.DAL
             serviceCollection.AddScoped<IWorkerRepository, WorkerRepository>();
             serviceCollection.AddScoped<IDepartmentRepository, DepartmentRepository>();
             serviceCollection.AddScoped<IProductRepository, ProductRepository>();
+            serviceCollection.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

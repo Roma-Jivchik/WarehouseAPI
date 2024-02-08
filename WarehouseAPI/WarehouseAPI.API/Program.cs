@@ -1,33 +1,47 @@
+using WarehouseAPI.BLL;
+using WarehouseAPI.DAL;
+using FluentMigrator.Runner;
+using WarehouseAPI.API.Filters;
+using WarehouseAPI.API.Configurations;
+using WebLibrary.API.Configurations;
 
-namespace WarehouseAPI.API
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers(options =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+    options.Filters.Add<ApiExceptionFilterAttribute>();
+});
 
-            builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger();
 
-            var app = builder.Build();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+builder.Services.AddBLL();
+builder.Services.AddDAL(connectionString);
 
-            app.UseHttpsRedirection();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
-            app.UseAuthorization();
+var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
-            app.MapControllers();
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
 
-            app.Run();
-        }
-    }
+    var runner = services.GetRequiredService<IMigrationRunner>();
+    runner.MigrateUp();
 }
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();

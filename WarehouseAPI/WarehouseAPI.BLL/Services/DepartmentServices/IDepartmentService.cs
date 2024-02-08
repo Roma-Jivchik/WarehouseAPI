@@ -17,8 +17,6 @@ namespace WarehouseAPI.BLL.Services.DepartmentServices
 
         Task<DepartmentDto?> GetDepartmentByNumberAsync(int number);
 
-        Task<bool> AddWorkerToDepartmentAsync(string workerLastName, int departmentNumber);
-
         Task<DepartmentDto?> GetDepartmentByNameAsync(string name);
 
         Task<bool> AddProductToDepartmentAsync(string productName, int departmentNumber);

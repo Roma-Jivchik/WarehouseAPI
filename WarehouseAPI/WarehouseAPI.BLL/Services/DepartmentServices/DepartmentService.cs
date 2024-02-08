@@ -96,31 +96,6 @@ namespace WarehouseAPI.BLL.Services.DepartmentServices
             return true;
         }
 
-        public async Task<bool> AddWorkerToDepartmentAsync(string workerLastName, int departmentNumber)
-        {
-            var worker = await _workerRepository.GetByLastNameAsync(workerLastName);
-
-            if(worker is null)
-            {
-                throw new ValidationExceptionResult(WorkerExceptionMessages.WorkerIsNotExist);
-            }
-
-            var departmentEntity = await _departmentRepository.GetByNumber(departmentNumber);
-
-            if(departmentEntity is null)
-            {
-                throw new ValidationExceptionResult(DepartmentExceptionMessages.DepartmentWithThisNumberIsNotExist);
-            }
-
-            departmentEntity.Workers.Add(worker);
-
-            var departmentDto = departmentEntity.Adapt<DepartmentDto>();
-
-            var updateDepartmentRequest = departmentDto.Adapt<UpdateDepartmentRequest>();
-
-            return await UpdateAsync(updateDepartmentRequest);
-        }
-
         public async Task<bool> AddProductToDepartmentAsync(string productName, int departmentNumber)
         {
             var product = await _productRepository.GetByName(productName);

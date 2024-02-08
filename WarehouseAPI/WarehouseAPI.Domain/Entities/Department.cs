@@ -8,7 +8,5 @@ namespace WarehouseAPI.Domain.Entities
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         public int Number { get; set; }
-        public Product? Product { get; set; }
-        public List<Worker> Workers { get; set; } = new List<Worker>();
     }
 }

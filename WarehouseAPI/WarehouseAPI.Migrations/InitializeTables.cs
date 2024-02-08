@@ -33,7 +33,7 @@ public class InitializeTables : AutoReversingMigration
 
         Create.Table("DepartmentWorkers")
             .WithColumn("Id").AsGuid().PrimaryKey()
-            .WithColumn("DepartmentId").AsGuid().ForeignKey("Department", "Id")
-            .WithColumn("WorkerId").AsGuid().ForeignKey("Worker", "Id");
+            .WithColumn("DepartmentId").AsGuid().ForeignKey("Department", "Id").OnDeleteOrUpdate(System.Data.Rule.Cascade)
+            .WithColumn("WorkerId").AsGuid().ForeignKey("Worker", "Id").OnDeleteOrUpdate(System.Data.Rule.Cascade);
     }
 }
