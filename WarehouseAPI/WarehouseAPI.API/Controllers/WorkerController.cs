@@ -41,7 +41,7 @@ namespace WarehouseAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("byLastName/{isbn}")]
+        [HttpGet("byLastName/{lastName}")]
         public async Task<ActionResult<Worker?>> GetWorkerByNameAsync([FromRoute] string lastName)
         {
             var worker = await _workerService.GetWorkerByLastNameAsync(lastName);
@@ -55,7 +55,7 @@ namespace WarehouseAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("byLowerPrice/{isbn}")]
+        [HttpGet("byLowerPrice/{position}")]
         public async Task<ActionResult<List<Worker?>>> GetWorkersByPositionAsync([FromRoute] string position)
         {
             var workers = await _workerService.GetWorkersByPositionAsync(position);

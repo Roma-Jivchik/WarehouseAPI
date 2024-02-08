@@ -41,10 +41,10 @@ namespace WarehouseAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("byName/{isbn}")]
-        public async Task<ActionResult<Department?>> GetDepartmentByNameAsync([FromRoute] string lastName)
+        [HttpGet("byName/{name}")]
+        public async Task<ActionResult<Department?>> GetDepartmentByNameAsync([FromRoute] string name)
         {
-            var department = await _departmentService.GetDepartmentByNameAsync(lastName);
+            var department = await _departmentService.GetDepartmentByNameAsync(name);
 
             if (department is null)
             {
@@ -55,7 +55,7 @@ namespace WarehouseAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("byNumber/{isbn}")]
+        [HttpGet("byNumber/{number}")]
         public async Task<ActionResult<Department?>> GetDepartmentByNumberAsync([FromRoute] int number)
         {
             var departments = await _departmentService.GetDepartmentByNumberAsync(number);

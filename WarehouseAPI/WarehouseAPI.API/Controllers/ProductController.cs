@@ -28,7 +28,7 @@ namespace WarehouseAPI.API.Controllers
         }
 
         [Authorize]
-        [HttpPut]
+        [HttpPut("addProductToDepartment")]
         public async Task<ActionResult> AddProductToDepartmentAsync([FromBody] ProductAddingModel model)
         {
             var isAdded = await _productService.AddProductToDepartmentAsync(model.ProductName, model.DepartmentNumber);
@@ -56,7 +56,7 @@ namespace WarehouseAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("byName/{isbn}")]
+        [HttpGet("byName/{name}")]
         public async Task<ActionResult<Product?>> GetProductByNameAsync([FromRoute] string name)
         {
             var product = await _productService.GetByNameAsync(name);
@@ -70,7 +70,7 @@ namespace WarehouseAPI.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("byLowerPrice/{isbn}")]
+        [HttpGet("byLowerPrice/{price}")]
         public async Task<ActionResult<List<Product?>>> GetProductByLowerPriceAsync([FromRoute] int price)
         {
             var products = await _productService.GetByLowerPriceAsync(price);
