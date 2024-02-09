@@ -5,7 +5,7 @@ services:
     image: vladsokol/libraryapi
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     build:
-      context: ../API
+      context: ../WarehouseAPI
       dockerfile: ./WarehouseAPI.API/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"

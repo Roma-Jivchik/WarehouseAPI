@@ -2,19 +2,25 @@
 FROM mcr.microsoft.com/mssql/server:2022-latest
 
 # Create a config directory
-RUN mkdir -p /usr/config
-WORKDIR /usr/config
+USER root
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
 # Bundle config source
-COPY . /usr/config
+COPY . /usr/src/app
 
 
 # Grant permissions for to our scripts to be executable
 USER root
-RUN chmod +x /usr/config/entrypoint.sh
-RUN chmod +x /usr/config/configure-db.sh
+RUN chmod +x /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/configure-db.sh
+
+RUN apt-get update && apt-get install -y dos2unix
+RUN dos2unix /usr/src/app/entrypoint.sh && dos2unix /usr/src/app/configure-db.sh
+RUN apt-get --purge remove -y dos2unix && rm -rf /var/lib/apt/lists/*
+
 
 # Run Microsoft SQl Server and initialization script (at the same time)
 # Note: If you want to start MsSQL only (without initialization script) you can comment bellow line out, CMD entry from base image will be taken
 USER mssql
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
